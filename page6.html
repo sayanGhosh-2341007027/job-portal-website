@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Job Application Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      background: linear-gradient(to right, #005f73, #0a9396);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2em;
+    }
+
+    .nav-links a {
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #94d2bd;
+      border-bottom: 2px solid #94d2bd;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 2em;
+      cursor: pointer;
+    }
+
+    /* Form container */
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      text-align: center;
+      color: #005f73;
+    }
+
+    form {
+      margin-top: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      font-size: 16px;
+      color: #333;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button {
+      background-color: #0a9396;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #005f73;
+    }
+
+    /* Responsive Navbar for small screens */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #005f73;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 200px;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+
+    /* Responsive container padding on small devices */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+        margin: 20px 10px;
+      }
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="hamburger">&#9776;</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="page2.html">Job Listings</a></li>
+        <li><a href="page3.html">Employer Dashboard</a></li>
+        <li><a href="page4.html">Job Seeker Dashboard</a></li>
+        <li><a href="page5.html">Contact Us</a></li>
+        <li><a href="page6.html">Job Application</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Job Application Form</h2>
+    <form id="applicationForm" onsubmit="return validateForm()">
+      <div class="form-group">
+        <label for="name">Full Name*</label>
+        <input type="text" id="name" name="name" placeholder="John Doe" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address*</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number*</label>
+        <input type="tel" id="phone" name="phone" placeholder="+1 123 456 7890" />
+      </div>
+
+      <div class="form-group">
+        <label for="resume">Upload Resume* (PDF, DOC, DOCX)</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" />
+      </div>
+
+      <div class="form-group">
+        <label for="coverLetter">Upload Cover Letter (optional)</label>
+        <input type="file" id="coverLetter" name="coverLetter" accept=".pdf,.doc,.docx" />
+      </div>
+
+      <div class="form-group">
+        <label for="message">Cover Message</label>
+        <textarea id="message" name="message" placeholder="Write a brief cover message..."></textarea>
+      </div>
+
+      <button type="submit">Submit Application</button>
+    </form>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('.hamburger').click(function () {
+        $('.nav-links').toggleClass('active');
+      });
+    });
+
+    function validateForm() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const resume = document.getElementById('resume').files[0];
+
+      if (!name || !email || !phone || !resume) {
+        alert("Please fill in all required fields and upload your resume.");
+        return false;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      alert("Your application has been submitted successfully!");
+      return true;
+    }
+  </script>
+</body>
+</html>
