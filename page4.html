@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Job Seeker Dashboard</title>
+  <!-- Google Fonts Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(to bottom, #d0f0fd, #e9d5ec);
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      background: linear-gradient(to right, #005f73, #0a9396);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8em;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2em;
+    }
+
+    .nav-links a {
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s ease, border-bottom 0.3s ease;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: #94d2bd;
+      border-bottom: 2px solid #94d2bd;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 2em;
+      cursor: pointer;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 20px auto 40px;
+      padding: 0 20px;
+    }
+
+    header.main-header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 0;
+      border: none;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    section {
+      margin-top: 30px;
+    }
+
+    .profile, .job-search, .favorites, .jobs {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h2, h3 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .upload-section {
+      margin-top: 20px;
+    }
+
+    input[type="file"] {
+      margin-right: 10px;
+    }
+
+    .jobs table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .jobs th,
+    .jobs td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .jobs th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .jobs td {
+      background-color: #fdfdfd;
+    }
+
+    .favorites ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .favorites li {
+      background-color: #f4f9f9;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    #job-search-input {
+      padding: 10px;
+      width: 80%;
+      max-width: 500px;
+      margin-right: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    .search-result {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #eef;
+      border-radius: 5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #005f73;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 200px;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 0 10px;
+      }
+
+      #job-search-input {
+        width: 100%;
+        margin: 0 0 10px 0;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Use the same hamburger menu and nav structure -->
+  <header class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="hamburger">&#9776;</div>
+    <nav>
+      <ul class="nav-links">
+         <li><a href="index.html">Home</a></li>
+        <li><a href="page2.html">Job Listings</a></li>
+        <li><a href="page3.html">Employer Dashboard</a></li>
+        <li><a href="page4.html">Job Seeker Dashboard</a></li>
+        <li><a href="page5.html">Contact Us</a></li>
+        <li><a href="page6.html">Job application page</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <header class="main-header">
+      <h1>Job Seeker Dashboard</h1>
+      <div id="user-info">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <section class="profile">
+      <h2>Your Profile</h2>
+      <div id="profile-details">
+        <p>Name: <span id="profile-name">John Doe</span></p>
+        <p>Email: <span id="profile-email">johndoe@example.com</span></p>
+      </div>
+
+      <div class="upload-section">
+        <h3>Upload Your Resume and Cover Letter</h3>
+        <input type="file" id="resume-upload" accept=".pdf, .doc, .docx" />
+        <input type="file" id="cover-letter-upload" accept=".pdf, .doc, .docx" />
+        <button onclick="uploadFiles()">Upload</button>
+      </div>
+    </section>
+
+    <section class="jobs">
+      <h2>Applied Jobs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="applied-jobs-list"></tbody>
+      </table>
+    </section>
+
+    <section class="favorites">
+      <h2>Your Favorite Jobs</h2>
+      <ul id="favorite-jobs-list"></ul>
+    </section>
+
+    <section class="job-search">
+      <h2>Search Jobs</h2>
+      <input type="text" id="job-search-input" placeholder="Search for jobs..." />
+      <button onclick="searchJobs()">Search</button>
+      <div id="search-results"></div>
+    </section>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.hamburger').click(function () {
+        $('.nav-links').toggleClass('active');
+      });
+    });
+
+    const jobsData = [
+      { title: 'Software Engineer', company: 'Tech Co.', status: 'Pending' },
+      { title: 'Web Developer', company: 'WebWorks', status: 'Interview Scheduled' },
+      { title: 'Data Analyst', company: 'DataCorp', status: 'Rejected' },
+      { title: 'Product Manager', company: 'ProductPro', status: 'Pending' }
+    ];
+
+    let favoriteJobs = ['Software Engineer at Tech Co.', 'Web Developer at WebWorks'];
+
+    function loadAppliedJobs() {
+      const jobsList = document.getElementById('applied-jobs-list');
+      jobsList.innerHTML = '';
+
+      jobsData.forEach((job) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${job.title}</td>
+          <td>${job.company}</td>
+          <td>${job.status}</td>
+          <td><button onclick="updateStatus('${job.title}')">Update Status</button></td>
+        `;
+        jobsList.appendChild(row);
+      });
+    }
+
+    function updateStatus(jobTitle) {
+      alert(`Updating status for ${jobTitle}`);
+    }
+
+    function uploadFiles() {
+      const resume = document.getElementById('resume-upload').files[0];
+      const coverLetter = document.getElementById('cover-letter-upload').files[0];
+
+      if (resume && coverLetter) {
+        alert('Resume and Cover Letter uploaded successfully!');
+      } else {
+        alert('Please upload both Resume and Cover Letter.');
+      }
+    }
+
+    function saveToFavorites(jobTitle) {
+      if (!favoriteJobs.includes(jobTitle)) {
+        favoriteJobs.push(jobTitle);
+        alert(`${jobTitle} saved to favorites!`);
+      } else {
+        alert(`${jobTitle} is already in your favorites.`);
+      }
+      loadFavorites();
+    }
+
+    function loadFavorites() {
+      const favoritesList = document.getElementById('favorite-jobs-list');
+      favoritesList.innerHTML = '';
+
+      favoriteJobs.forEach((job) => {
+        const li = document.createElement('li');
+        li.innerText = job;
+        favoritesList.appendChild(li);
+      });
+    }
+
+    function searchJobs() {
+      const searchQuery = document.getElementById('job-search-input').value.toLowerCase();
+      const resultsContainer = document.getElementById('search-results');
+
+      const filteredJobs = jobsData.filter(
+        (job) =>
+          job.title.toLowerCase().includes(searchQuery) ||
+          job.company.toLowerCase().includes(searchQuery)
+      );
+
+      resultsContainer.innerHTML = '';
+
+      if (filteredJobs.length > 0) {
+        filteredJobs.forEach((job) => {
+          const div = document.createElement('div');
+          div.classList.add('search-result');
+          div.innerHTML = `
+            <h4>${job.title} at ${job.company}</h4>
+            <button onclick="saveToFavorites('${job.title} at ${job.company}')">Save to Favorites</button>
+          `;
+          resultsContainer.appendChild(div);
+        });
+      } else {
+        resultsContainer.innerHTML = '<p>No jobs found</p>';
+      }
+    }
+
+    function loadUserInfo() {
+      document.getElementById('profile-name').innerText = 'Jane Doe';
+      document.getElementById('profile-email').innerText = 'janedoe@example.com';
+      loadAppliedJobs();
+      loadFavorites();
+    }
+
+    function logout() {
+      alert('Logged out');
+    }
+
+    window.onload = loadUserInfo;
+  </script>
+</body>
+</html>
