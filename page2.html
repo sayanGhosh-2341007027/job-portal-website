@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Listings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      background: linear-gradient(to right, #005f73, #0a9396);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2em;
+    }
+
+    .nav-links a {
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #94d2bd;
+      border-bottom: 2px solid #94d2bd;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 2em;
+      cursor: pointer;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      margin: 40px 20px 20px;
+      font-size: 2.5em;
+      color: #005f73;
+    }
+
+    /* Filters */
+    #filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      max-width: 1000px;
+      margin: 0 auto 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    #filters label {
+      font-weight: bold;
+    }
+
+    #filters select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0a9396;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #005f73;
+    }
+
+    #jobListings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+
+    .jobListing {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+    }
+
+    .jobListing:hover {
+      transform: translateY(-5px);
+    }
+
+    .jobListing h3 {
+      color: #0a9396;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .jobListing p {
+      margin-bottom: 8px;
+      font-size: 0.95em;
+    }
+
+    .jobListing button {
+      background-color: #ee9b00;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .jobListing button:hover {
+      background-color: #ca6702;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #005f73;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 200px;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      #filters {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">JobPortal</div>
+    <div class="hamburger">&#9776;</div>
+    <nav>
+      <ul class="nav-links">
+         <li><a href="index.html">Home</a></li>
+        <li><a href="page2.html">Job Listings</a></li>
+        <li><a href="page3.html">Employer Dashboard</a></li>
+        <li><a href="page4.html">Job Seeker Dashboard</a></li>
+        <li><a href="page5.html">Contact Us</a></li>
+        <li><a href="page6.html">Job Application</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h1 class="page-title">Job Listings</h1>
+
+  <div id="filters">
+    <label for="jobType">Job Type:</label>
+    <select id="jobType">
+      <option value="all">All</option>
+      <option value="full-time">Full-time</option>
+      <option value="part-time">Part-time</option>
+      <option value="remote">Remote</option>
+    </select>
+
+    <label for="location">Location:</label>
+    <select id="location">
+      <option value="all">All</option>
+      <option value="new york">New York</option>
+      <option value="san francisco">San Francisco</option>
+      <option value="remote">Remote</option>
+    </select>
+
+    <button onclick="applyFilters()">Apply Filters</button>
+  </div>
+
+  <main>
+    <div id="jobListings"></div>
+  </main>
+
+  <script>
+    $(document).ready(function () {
+      $('.hamburger').click(function () {
+        $('.nav-links').toggleClass('active');
+      });
+    });
+
+    const jobData = [
+      { id: 1, title: 'Software Engineer', company: 'Tech Corp', location: 'New York', jobType: 'Full-time', datePosted: '2025-05-01', salary: 100000 },
+      { id: 2, title: 'Product Manager', company: 'Innovate LLC', location: 'San Francisco', jobType: 'Part-time', datePosted: '2025-04-15', salary: 80000 },
+      { id: 3, title: 'UX Designer', company: 'Design Studio', location: 'Remote', jobType: 'Remote', datePosted: '2025-03-10', salary: 75000 },
+      { id: 4, title: 'Data Scientist', company: 'AI Solutions', location: 'New York', jobType: 'Full-time', datePosted: '2025-04-20', salary: 120000 },
+    ];
+
+    function displayJobs(jobs) {
+      const jobListingsDiv = document.getElementById('jobListings');
+      jobListingsDiv.innerHTML = '';
+
+      jobs.forEach(job => {
+        const jobDiv = document.createElement('div');
+        jobDiv.classList.add('jobListing');
+
+        jobDiv.innerHTML = `
+          <h3>${job.title}</h3>
+          <p><strong>Company:</strong> ${job.company}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <p><strong>Type:</strong> ${job.jobType}</p>
+          <p><strong>Date Posted:</strong> ${job.datePosted}</p>
+          <button onclick="viewDetails(${job.id})">View Details</button>
+        `;
+
+        jobListingsDiv.appendChild(jobDiv);
+      });
+    }
+
+    function applyFilters() {
+      const jobType = document.getElementById('jobType').value;
+      const location = document.getElementById('location').value.toLowerCase();
+
+      const filteredJobs = jobData.filter(job => {
+        return (jobType === 'all' || job.jobType.toLowerCase() === jobType.toLowerCase()) &&
+               (location === 'all' || job.location.toLowerCase() === location);
+      });
+
+      displayJobs(filteredJobs);
+    }
+
+    function viewDetails(jobId) {
+      const job = jobData.find(job => job.id === jobId);
+      localStorage.setItem('jobDetails', JSON.stringify(job));
+      window.location.href = 'job-details.html';
+    }
+
+    displayJobs(jobData);
+  </script>
+</body>
+</html>
